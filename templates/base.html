@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Email Support Agent{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/main.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                📧 Email Support Agent
+            </a>
+            <ul class="nav-links">
+                <li>
+                    <a href="/" class="{% block nav_test_active %}{% endblock %}">Test Email</a>
+                </li>
+                <li>
+                    <a href="/dashboard" class="{% block nav_dashboard_active %}{% endblock %}">Dashboard</a>
+                </li>
+                <li>
+                    <a href="/api-docs" class="{% block nav_api_docs_active %}{% endblock %}">API Docs</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Customer Support Email Agent powered by LangGraph | FAISS Knowledge Base | OpenAI</p>
+    </footer>
+</body>
+</html>

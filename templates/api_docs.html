@@ -1,0 +1,382 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation - Email Support Agent{% endblock %}
+
+{% block nav_api_docs_active %}active{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1 class="card-title">📚 API Documentation</h1>
+    <p style="color: var(--secondary); margin-bottom: 2rem;">
+        Complete reference for all available API endpoints in the Email Support Agent
+    </p>
+
+    <!-- Quick Links -->
+    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <a href="#health" class="btn btn-secondary btn-small">Health Check</a>
+        <a href="#submit-email" class="btn btn-secondary btn-small">Submit Email</a>
+        <a href="#get-status" class="btn btn-secondary btn-small">Get Status</a>
+        <a href="#list-emails" class="btn btn-secondary btn-small">List Emails</a>
+        <a href="#swagger" class="btn btn-secondary btn-small">Interactive Docs</a>
+    </div>
+</div>
+
+<!-- BASE URL -->
+<div class="card">
+    <h2 style="color: var(--dark); margin-bottom: 1rem;">🌐 Base URL</h2>
+    <div style="background: var(--light); padding: 1rem; border-radius: 4px; font-family: monospace; word-break: break-all;">
+        http://localhost:8000
+    </div>
+</div>
+
+<!-- HEALTH CHECK ENDPOINT -->
+<div class="card" id="health">
+    <h2 style="color: var(--dark); margin-bottom: 1rem;">1️⃣ Health Check</h2>
+
+    <div style="margin-bottom: 1.5rem;">
+        <div style="background: var(--light); padding: 1rem; border-radius: 4px; border-left: 4px solid var(--success); margin-bottom: 1rem;">
+            <strong>GET</strong> <span style="font-family: monospace;">/health</span>
+        </div>
+
+        <p style="color: var(--secondary); margin-bottom: 1rem;">
+            Check if the API server is running and healthy.
+        </p>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin-bottom: 0.5rem;">📤 Response</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto;">
+<pre style="margin: 0;">{
+  "status": "ok"
+}</pre>
+        </div>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin: 1.5rem 0 0.5rem 0;">🧪 Try It</h3>
+        <button class="btn btn-primary btn-small" onclick="tryAPI('GET', '/health', null)">Test Endpoint</button>
+    </div>
+</div>
+
+<!-- SUBMIT EMAIL ENDPOINT -->
+<div class="card" id="submit-email">
+    <h2 style="color: var(--dark); margin-bottom: 1rem;">2️⃣ Submit Email for Processing</h2>
+
+    <div style="margin-bottom: 1.5rem;">
+        <div style="background: var(--light); padding: 1rem; border-radius: 4px; border-left: 4px solid var(--info); margin-bottom: 1rem;">
+            <strong>POST</strong> <span style="font-family: monospace;">/api/emails</span>
+        </div>
+
+        <p style="color: var(--secondary); margin-bottom: 1rem;">
+            Submit a customer email for processing through the AI agent pipeline.
+        </p>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin-bottom: 0.5rem;">📥 Request Body</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto;">
+<pre style="margin: 0;">{
+  "sender": "customer@example.com",
+  "recipient": "support@company.com",
+  "subject": "Unable to reset my password",
+  "body": "I tried to reset but didn't receive the email"
+}</pre>
+        </div>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin: 1.5rem 0 0.5rem 0;">📤 Response</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto;">
+<pre style="margin: 0;">{
+  "email_id": "email_abc123",
+  "status": "sent",
+  "message": "Email processed successfully. Status: sent"
+}</pre>
+        </div>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin: 1.5rem 0 0.5rem 0;">📝 Parameters</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: var(--light);">
+                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Parameter</th>
+                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Type</th>
+                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Required</th>
+                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Description</th>
+            </tr>
+            <tr>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">sender</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">string</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">Yes</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">Sender email address</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">recipient</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">string</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">Yes</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">Recipient email address</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">subject</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">string</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">Yes</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">Email subject</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">body</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">string</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">Yes</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">Email message body</td>
+            </tr>
+        </table>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin: 1.5rem 0 0.5rem 0;">🧪 Try It</h3>
+        <button class="btn btn-primary btn-small" onclick="showAPITestForm('/api/emails', 'POST')">Test Endpoint</button>
+    </div>
+</div>
+
+<!-- GET EMAIL STATUS -->
+<div class="card" id="get-status">
+    <h2 style="color: var(--dark); margin-bottom: 1rem;">3️⃣ Get Email Status</h2>
+
+    <div style="margin-bottom: 1.5rem;">
+        <div style="background: var(--light); padding: 1rem; border-radius: 4px; border-left: 4px solid var(--success); margin-bottom: 1rem;">
+            <strong>GET</strong> <span style="font-family: monospace;">/api/emails/{email_id}</span>
+        </div>
+
+        <p style="color: var(--secondary); margin-bottom: 1rem;">
+            Retrieve the status and details of a processed email.
+        </p>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin-bottom: 0.5rem;">📥 Path Parameter</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: var(--light);">
+                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Parameter</th>
+                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Type</th>
+                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Description</th>
+            </tr>
+            <tr>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">email_id</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">string</td>
+                <td style="padding: 0.75rem; border: 1px solid var(--border);">Email identifier (from POST response)</td>
+            </tr>
+        </table>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin: 1.5rem 0 0.5rem 0;">📤 Response</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto; font-size: 0.9rem;">
+<pre style="margin: 0;">{
+  "email_id": "email_abc123",
+  "status": "sent",
+  "intent": "question",
+  "urgency": "high",
+  "category": "account",
+  "confidence": 0.92,
+  "final_status": "sent",
+  "escalated": false,
+  "escalation_ticket_id": null,
+  "draft_response": "Hello! I understand you're having trouble..."
+}</pre>
+        </div>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin: 1.5rem 0 0.5rem 0;">🧪 Try It</h3>
+        <div style="display: flex; gap: 1rem;">
+            <input type="text" id="email-id-input" placeholder="Enter email_id (e.g., email_abc123)"
+                   style="flex: 1; padding: 0.5rem; border: 1px solid var(--border); border-radius: 4px;">
+            <button class="btn btn-primary btn-small" onclick="tryGetStatus()">Get Status</button>
+        </div>
+    </div>
+</div>
+
+<!-- LIST EMAILS -->
+<div class="card" id="list-emails">
+    <h2 style="color: var(--dark); margin-bottom: 1rem;">4️⃣ List All Emails</h2>
+
+    <div style="margin-bottom: 1.5rem;">
+        <div style="background: var(--light); padding: 1rem; border-radius: 4px; border-left: 4px solid var(--success); margin-bottom: 1rem;">
+            <strong>GET</strong> <span style="font-family: monospace;">/api/emails-list</span>
+        </div>
+
+        <p style="color: var(--secondary); margin-bottom: 1rem;">
+            Get a list of all processed emails with statistics.
+        </p>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin-bottom: 0.5rem;">📤 Response</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto; font-size: 0.9rem;">
+<pre style="margin: 0;">{
+  "emails": [
+    {
+      "email_id": "email_abc123",
+      "sender": "customer@example.com",
+      "recipient": "support@company.com",
+      "subject": "Unable to reset my password",
+      "state": {
+        "intent": "question",
+        "urgency": "high",
+        "category": "account",
+        "confidence": 0.92,
+        "final_status": "sent",
+        "draft_response": "..."
+      }
+    }
+  ],
+  "stats": {
+    "total": 5,
+    "sent": 3,
+    "escalated": 2,
+    "avg_confidence": 0.87
+  }
+}</pre>
+        </div>
+
+        <h3 style="color: var(--dark); font-size: 1rem; margin: 1.5rem 0 0.5rem 0;">🧪 Try It</h3>
+        <button class="btn btn-primary btn-small" onclick="tryAPI('GET', '/api/emails-list', null)">Get All Emails</button>
+    </div>
+</div>
+
+<!-- INTERACTIVE SWAGGER -->
+<div class="card" id="swagger">
+    <h2 style="color: var(--dark); margin-bottom: 1rem;">📖 Interactive API Documentation</h2>
+    <p style="color: var(--secondary); margin-bottom: 1rem;">
+        FastAPI automatically generates interactive API documentation where you can test all endpoints:
+    </p>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="http://localhost:8000/docs" target="_blank" class="btn btn-primary">
+            🔗 Swagger UI
+        </a>
+        <a href="http://localhost:8000/redoc" target="_blank" class="btn btn-primary">
+            📄 ReDoc
+        </a>
+    </div>
+</div>
+
+<!-- CURL EXAMPLES -->
+<div class="card">
+    <h2 style="color: var(--dark); margin-bottom: 1rem;">💻 cURL Examples</h2>
+
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: var(--dark); font-size: 1rem; margin-bottom: 0.5rem;">Health Check</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto;">
+<pre style="margin: 0;">curl http://localhost:8000/health</pre>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: var(--dark); font-size: 1rem; margin-bottom: 0.5rem;">Submit Email</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto; font-size: 0.85rem;">
+<pre style="margin: 0;">curl -X POST http://localhost:8000/api/emails \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sender": "customer@example.com",
+    "recipient": "support@company.com",
+    "subject": "I need help",
+    "body": "Can you help me reset my password?"
+  }'</pre>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: var(--dark); font-size: 1rem; margin-bottom: 0.5rem;">Get Email Status</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto;">
+<pre style="margin: 0;">curl http://localhost:8000/api/emails/email_abc123</pre>
+        </div>
+    </div>
+
+    <div>
+        <h3 style="color: var(--dark); font-size: 1rem; margin-bottom: 0.5rem;">List All Emails</h3>
+        <div style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto;">
+<pre style="margin: 0;">curl http://localhost:8000/api/emails-list</pre>
+        </div>
+    </div>
+</div>
+
+<!-- RESPONSE CODES -->
+<div class="card">
+    <h2 style="color: var(--dark); margin-bottom: 1rem;">📋 HTTP Status Codes</h2>
+
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr style="background: var(--light);">
+            <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Code</th>
+            <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Meaning</th>
+            <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border);">Example</th>
+        </tr>
+        <tr>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">200</td>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">Success</td>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">Email retrieved successfully</td>
+        </tr>
+        <tr>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">404</td>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">Not Found</td>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">Email ID doesn't exist</td>
+        </tr>
+        <tr>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">422</td>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">Validation Error</td>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">Invalid email format</td>
+        </tr>
+        <tr>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">500</td>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">Server Error</td>
+            <td style="padding: 0.75rem; border: 1px solid var(--border);">Processing failed</td>
+        </tr>
+    </table>
+</div>
+
+<!-- RESPONSE MODAL -->
+<div id="api-response-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 8px; padding: 2rem; max-width: 800px; width: 90%; max-height: 80vh; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="color: var(--dark); margin: 0;">API Response</h3>
+            <button style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--secondary);"
+                    onclick="document.getElementById('api-response-modal').style.display = 'none'">×</button>
+        </div>
+        <div id="api-response-content" style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;">
+            Loading...
+        </div>
+    </div>
+</div>
+
+<script>
+async function tryAPI(method, endpoint, body) {
+    try {
+        const response = await fetch(endpoint, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: body ? JSON.stringify(body) : undefined
+        });
+
+        const data = await response.json();
+        showAPIResponse(JSON.stringify(data, null, 2));
+    } catch (error) {
+        showAPIResponse('Error: ' + error.message);
+    }
+}
+
+function tryGetStatus() {
+    const emailId = document.getElementById('email-id-input').value;
+    if (!emailId) {
+        alert('Please enter an email ID');
+        return;
+    }
+    tryAPI('GET', `/api/emails/${emailId}`, null);
+}
+
+function showAPITestForm(endpoint, method) {
+    const email = prompt('Enter email body (JSON or leave for example):',
+        '{\n  "sender": "test@example.com",\n  "recipient": "support@company.com",\n  "subject": "Test Subject",\n  "body": "Test message"\n}');
+
+    if (email) {
+        try {
+            const data = JSON.parse(email);
+            tryAPI(method, endpoint, data);
+        } catch (e) {
+            alert('Invalid JSON: ' + e.message);
+        }
+    }
+}
+
+function showAPIResponse(content) {
+    document.getElementById('api-response-content').textContent = content;
+    document.getElementById('api-response-modal').style.display = 'flex';
+}
+
+// Close modal on background click
+document.getElementById('api-response-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.style.display = 'none';
+    }
+});
+</script>
+{% endblock %}

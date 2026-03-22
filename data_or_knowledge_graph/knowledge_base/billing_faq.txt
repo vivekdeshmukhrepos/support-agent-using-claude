@@ -1,0 +1,34 @@
+BILLING AND PAYMENT FAQ
+
+1. Billing Cycles
+Our billing cycle runs from the 1st to the last day of each month. Your invoice is generated on the first day of the following month. Charges appear on your credit card statement 1-2 business days after the invoice date.
+
+2. Accepted Payment Methods
+We accept:
+- Credit cards (Visa, Mastercard, American Express)
+- Debit cards
+- PayPal
+- Bank transfers (ACH in the US)
+
+3. Invoice and Receipts
+You can download invoices from Billing > Invoice History. Each invoice shows itemized charges, applicable taxes, and payment method used. Invoices are emailed automatically on the first day of each month.
+
+4. Subscription Plans
+We offer three plans:
+- Basic: $29/month - 100 API calls, 1GB storage
+- Pro: $99/month - 10,000 API calls, 100GB storage
+- Enterprise: Custom pricing - unlimited API calls, dedicated support
+
+Upgrade or downgrade anytime. Downgrades take effect at the start of your next billing cycle. Pro-rata refunds are issued for upgrades.
+
+5. Refunds and Cancellation
+Cancellations take effect immediately. You'll retain access until the end of your current billing cycle. Refunds are processed within 5-7 business days.
+
+6. Failed Payment
+If a payment fails, you'll receive an email notification. You have 5 days to update your payment method. If not updated, your account will be suspended.
+
+7. Taxes
+Applicable sales tax will be added based on your billing address. Tax-exempt organizations can provide a tax certificate for exemption.
+
+8. Credit Card Security
+We use PCI-DSS compliant payment processors. Your card details are never stored on our servers. We use tokenization for recurring charges.

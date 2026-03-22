@@ -27,12 +27,10 @@ class Settings(BaseSettings):
     # Logging Configuration
     log_level: str = "INFO"
 
-    # ChromaDB Configuration
-    chroma_persist_directory: str = "./data_or_knowledge_graph/chroma_db"
-
     class Config:
         """Pydantic config."""
 
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = False
+        extra = "ignore"  # Ignore extra fields from .env file

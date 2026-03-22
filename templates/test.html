@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Test Email - Email Support Agent{% endblock %}
+
+{% block nav_test_active %}active{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1 class="card-title">🧪 Test Email Processing</h1>
+
+    <div id="alert" class="alert"></div>
+
+    <!-- Form Section -->
+    <form id="email-form" onsubmit="submitEmail(event)">
+        <div class="form-group">
+            <label for="sender">Sender Email *</label>
+            <input type="email" id="sender" name="sender" placeholder="customer@example.com" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="recipient">Recipient Email *</label>
+                <input type="email" id="recipient" name="recipient" placeholder="support@company.com" value="support@company.com" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subject *</label>
+            <input type="text" id="subject" name="subject" placeholder="Email subject" required>
+        </div>
+
+        <div class="form-group">
+            <label for="body">Body *</label>
+            <textarea id="body" name="body" placeholder="Email message" required></textarea>
+        </div>
+
+        <!-- Quick Examples -->
+        <div class="form-group" style="margin-bottom: 2rem;">
+            <label style="margin-bottom: 1rem;">📝 Quick Examples:</label>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button type="button" class="btn btn-secondary btn-small" onclick="setExampleEmail('password')">
+                    Password Reset
+                </button>
+                <button type="button" class="btn btn-secondary btn-small" onclick="setExampleEmail('billing')">
+                    Billing Question
+                </button>
+                <button type="button" class="btn btn-secondary btn-small" onclick="setExampleEmail('critical')">
+                    Urgent Issue
+                </button>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Submit Email
+        </button>
+    </form>
+</div>
+
+<!-- Loading Indicator -->
+<div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p style="margin-top: 1rem; color: var(--secondary);">Processing email...</p>
+</div>
+
+<!-- Results Section -->
+<div id="result-container" class="result-container">
+    <!-- Classification Results -->
+    <div class="result-section">
+        <div class="result-section-title">📊 Classification Results</div>
+        <div class="classification-grid">
+            <div class="classification-item">
+                <div class="classification-label">Intent</div>
+                <div class="classification-value" id="result-intent">-</div>
+            </div>
+            <div class="classification-item">
+                <div class="classification-label">Category</div>
+                <div class="classification-value" id="result-category">-</div>
+            </div>
+            <div class="classification-item">
+                <div class="classification-label">Urgency</div>
+                <div class="classification-value" id="result-urgency">-</div>
+            </div>
+            <div class="classification-item">
+                <div class="classification-label">Confidence</div>
+                <div id="result-confidence">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Results -->
+    <div class="result-section">
+        <div class="result-section-title">✅ Processing Status</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+                <div class="classification-label">Final Status</div>
+                <div id="result-status" style="font-size: 1.25rem; margin-top: 0.5rem;">-</div>
+            </div>
+            <div>
+                <div class="classification-label">Escalated to Human?</div>
+                <div id="result-escalated" style="font-size: 1.25rem; margin-top: 0.5rem;">-</div>
+            </div>
+        </div>
+        <div id="escalation-section" style="margin-top: 1.5rem; padding: 1rem; background: #fed7aa; border-radius: 4px; display: none;">
+            <div class="classification-label">Escalation Ticket ID</div>
+            <div id="result-ticket" style="font-size: 1.1rem; margin-top: 0.5rem; font-weight: 600;">-</div>
+        </div>
+    </div>
+
+    <!-- Generated Response -->
+    <div class="result-section">
+        <div class="result-section-title">💬 Generated Response</div>
+        <div id="result-response" style="line-height: 1.8; color: var(--text);">
+            Loading...
+        </div>
+    </div>
+</div>
+
+<script>
+// Show/hide escalation section based on status
+function showResults(show = true) {
+    const container = document.getElementById('result-container');
+    if (container) {
+        container.classList.toggle('show', show);
+        if (show) {
+            // Check if escalated
+            const status = document.getElementById('result-status');
+            const escalationSection = document.querySelector('#escalation-section');
+            if (status && escalationSection) {
+                const isEscalated = status.textContent.includes('escalated');
+                escalationSection.style.display = isEscalated ? 'block' : 'none';
+            }
+        }
+    }
+}
+</script>
+{% endblock %}

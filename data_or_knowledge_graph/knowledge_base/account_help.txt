@@ -1,0 +1,24 @@
+ACCOUNT HELP AND SUPPORT
+
+1. Password Reset
+If you forgot your password, click on "Forgot Password" on the login page. Enter your email address and you'll receive a password reset link within 5 minutes. Click the link and create a new password. Your password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.
+
+2. Account Verification
+New accounts need to be verified before use. Check your email for a verification link. If you don't see it, check your spam folder or request a new verification email from the account settings page.
+
+3. Two-Factor Authentication (2FA)
+We recommend enabling 2FA for security. Go to Settings > Security > Enable 2FA. You can use Google Authenticator, Microsoft Authenticator, or receive codes via SMS.
+
+4. Account Deactivation
+To deactivate your account, go to Settings > Account > Deactivate Account. Your data will be retained for 30 days before permanent deletion. You can reactivate within this period by logging in.
+
+5. Updating Profile Information
+Visit Settings > Profile to update your name, email, phone number, and profile picture. All changes are saved immediately.
+
+6. Login Issues
+If you can't log in:
+- Clear your browser cache and cookies
+- Try using a different browser
+- Check if Caps Lock is on
+- Ensure you're using the correct email address
+- Wait 15 minutes if you've tried logging in too many times (account locked temporarily)

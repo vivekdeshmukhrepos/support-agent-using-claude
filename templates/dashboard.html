@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Email Support Agent{% endblock %}
+
+{% block nav_dashboard_active %}active{% endblock %}
+
+{% block content %}
+<div>
+    <h1 style="color: white; margin-bottom: 2rem;">📊 Dashboard</h1>
+
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number" id="stat-total">0</div>
+            <div class="stat-label">Total Emails</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="stat-sent">0</div>
+            <div class="stat-label">Auto-Replied</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="stat-escalated">0</div>
+            <div class="stat-label">Escalated</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="stat-confidence">0.00</div>
+            <div class="stat-label">Avg Confidence</div>
+        </div>
+    </div>
+
+    <!-- Emails Table -->
+    <div class="card">
+        <div class="card-title">📧 Processed Emails</div>
+
+        <div id="alert" class="alert"></div>
+
+        <div style="overflow-x: auto;">
+            <table class="email-table">
+                <thead>
+                    <tr>
+                        <th>From / Subject</th>
+                        <th>Status</th>
+                        <th>Intent</th>
+                        <th>Urgency</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="emails-tbody">
+                    <tr>
+                        <td colspan="6" class="no-emails">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Email Details Modal -->
+<div id="email-detail-modal" class="email-detail-modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2 style="margin-bottom: 1.5rem; color: var(--dark);">📧 Email Details</h2>
+        <div id="modal-body">
+            Loading...
+        </div>
+    </div>
+</div>
+
+<script>
+// Load emails on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadEmails();
+    // Auto-refresh every 10 seconds
+    setInterval(loadEmails, 10000);
+});
+</script>
+{% endblock %}

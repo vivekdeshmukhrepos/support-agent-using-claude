@@ -1,165 +1,138 @@
-# LangGraph Customer Support Email Agent
+# 📧 Email Support Agent
 
-A Python-based customer support email agent built with LangGraph, LangChain, and FastAPI. This agent intelligently classifies, responds to, and escalates customer emails using OpenAI's language models.
+AI-powered customer support email agent using LangGraph, LangChain, and FastAPI. Classifies emails, generates responses with RAG, and escalates complex issues.
 
-## Features (Planned)
-
-- **Email Classification**: Automatically categorize incoming emails by intent and urgency
-- **Intelligent Response Generation**: Generate contextual responses using RAG (Retrieval-Augmented Generation)
-- **Human Escalation**: Route complex issues to human support team members
-- **Knowledge Base Integration**: Leverage ChromaDB for efficient document retrieval
-- **REST API**: FastAPI-based endpoints for email submission and status tracking
-
-## Tech Stack
-
-- **Python 3.12+**
-- **LangGraph** — Agentic workflow orchestration
-- **LangChain** — LLM framework and tooling
-- **FastAPI** — Web framework
-- **OpenAI API** — LLM backbone
-- **ChromaDB** — Vector store for RAG
-- **Pydantic** — Data validation
-- **Loguru** — Structured logging
-
-## Project Structure
-
-```
-support-agent-using-claude/
-├── src/
-│   ├── api/                  # FastAPI routes & dependencies
-│   ├── graph/                # LangGraph state machine definitions
-│   ├── nodes/                # Graph node implementations
-│   ├── services/             # Business logic (email, knowledge base)
-│   ├── prompts/              # LangChain prompt templates
-│   ├── schemas/              # Pydantic models
-│   ├── core/                 # Config, logging setup
-│   └── utils/                # Helper utilities
-├── data_or_knowledge_graph/  # Knowledge base & sample data
-├── tests/                    # Test suite (pytest)
-├── main.py                   # FastAPI app entry point
-├── requirements.txt          # Python dependencies
-├── .env.example              # Environment variables template
-└── README.md                 # This file
-```
-
-## Setup
-
-### Prerequisites
-
-- Python 3.12+
-- pip
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <repo_url>
-   cd support-agent-using-claude
-   ```
-
-2. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Configure environment variables:
-   ```bash
-   cp .env.example .env
-   # Edit .env and add your OpenAI API key and other config
-   ```
-
-### Running the Application
-
-Start the FastAPI server:
+## ⚡ Quick Start (5 minutes)
 
 ```bash
+# 1. Setup
+python -m venv venv
+venv\Scripts\activate  # Windows: or source venv/bin/activate on Mac/Linux
+pip install -r requirements.txt
+
+# 2. Configure
+cp .env.example .env
+# Edit .env and add: OPENAI_API_KEY=sk-...
+
+# 3. Load knowledge base
+python load_knowledge_base.py
+
+# 4. Run
 python main.py
+
+# 5. Open in browser
+http://localhost:8000
 ```
 
-The API will be available at `http://localhost:8000`.
+## ✨ Features
 
-**Health Check:**
+- 🤖 **Email Classification** — Intent, urgency, category via OpenAI
+- 🔍 **RAG-based Responses** — Uses FAISS + knowledge base for context
+- 📋 **Smart Escalation** — Routes complex/urgent emails to humans
+- 🌐 **Web UI** — Test emails, view dashboard, explore APIs
+- 📊 **Full API** — REST endpoints for integration
+- 📧 **Email Integration** — SMTP sending + follow-up scheduling
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| LLM | OpenAI (GPT-4) |
+| Framework | LangGraph + LangChain |
+| Vector Store | FAISS (CPU) |
+| Web API | FastAPI + Uvicorn |
+| Config | Pydantic Settings |
+| Scheduling | APScheduler |
+| Logging | Loguru |
+
+## 📁 Structure
+
+```
+src/
+├── api/         # FastAPI routes (web UI + API endpoints)
+├── graph/       # LangGraph state machine
+├── nodes/       # Processing nodes (classifier, responder, etc.)
+├── services/    # Email & knowledge base services
+├── prompts/     # LLM prompt templates
+├── schemas/     # Pydantic data models
+├── core/        # Config & logging
+└── utils/       # Helpers
+
+data_or_knowledge_graph/
+├── knowledge_base/    # FAQ documents (TXT format)
+└── faiss_index/       # Vector store (auto-created)
+```
+
+## 🌐 Web UI
+
+| Page | URL | Purpose |
+|------|-----|---------|
+| **Test Email** | http://localhost:8000/ | Submit & test emails with quick examples |
+| **Dashboard** | http://localhost:8000/dashboard | View all processed emails & stats |
+| **API Docs** | http://localhost:8000/api-docs | Interactive API documentation |
+
+## 📡 API Endpoints
+
 ```bash
-curl http://localhost:8000/health
+GET  /health              # Health check
+POST /api/emails          # Submit email
+GET  /api/emails/{id}     # Get email status
+GET  /api/emails-list     # List all emails
 ```
 
-Expected response:
-```json
-{
-  "status": "ok"
-}
+## 🔧 Configuration
+
+Set in `.env`:
+```env
+OPENAI_API_KEY=sk-...           # Required
+OPENAI_MODEL=gpt-4              # LLM model
+API_PORT=8000                   # Server port
+LOG_LEVEL=INFO                  # Logging level
+SMTP_USERNAME=your@gmail.com    # Optional: for real email
+SMTP_PASSWORD=app_password      # Optional: Google App Password
 ```
 
-### Running Tests
+## 📚 Documentation
 
-```bash
-pytest tests/
+- **Setup Guide** → [QUICKSTART.md](UI_QUICKSTART.md)
+- **UI Guide** → [UI_GUIDE.md](UI_GUIDE.md)
+- **FAISS Setup** → [FAISS_GUIDE.md](FAISS_GUIDE.md)
+- **API Reference** → Visit `/api-docs` when app is running
+
+## 🚀 Workflow
+
+```
+Email Received
+    ↓
+Classify (intent, urgency, category)
+    ↓
+Retrieve docs from FAISS knowledge base
+    ↓
+Generate response via OpenAI + context
+    ↓
+Route: Escalate (urgent) or Send (auto-reply)?
+    ↓
+Send email + schedule follow-up
 ```
 
-For verbose output:
-```bash
-pytest tests/ -v
+## ✅ Sample Email Processing
+
+```
+Input: "Unable to reset my password"
+  ↓
+Classification: intent=question, urgency=high, category=account
+  ↓
+Retrieved: Password reset FAQ from knowledge base
+  ↓
+Response: "Click Forgot Password on login page..."
+  ↓
+Status: SENT ✓
 ```
 
-## API Endpoints (Planned)
+## 🤝 Contributing
 
-- `GET /health` — Health check
-- `POST /api/emails` — Submit an email for processing
-- `GET /api/emails/{email_id}` — Retrieve email processing status
+Pull requests welcome. For major changes, open an issue first.
 
-## Configuration
+## 📝 License
 
-All configuration is managed via environment variables in `.env`. Key variables:
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `OPENAI_API_KEY` | OpenAI API key | `sk-...` |
-| `OPENAI_MODEL` | OpenAI model to use | `gpt-4` |
-| `API_PORT` | FastAPI port | `8000` |
-| `LOG_LEVEL` | Logging level | `INFO` |
-
-See `.env.example` for all available options.
-
-## Development
-
-### Code Structure Overview
-
-- **`src/graph/agent_graph.py`** — Main LangGraph StateGraph definition
-- **`src/nodes/`** — Individual node implementations (classifier, responder, escalation)
-- **`src/api/routes/email.py`** — Email submission & retrieval endpoints
-- **`src/services/`** — Email & knowledge base service abstractions
-- **`src/core/config.py`** — Application configuration via pydantic-settings
-
-### Adding New Features
-
-1. Create node implementations in `src/nodes/`
-2. Register nodes in `src/graph/agent_graph.py`
-3. Add API endpoints in `src/api/routes/`
-4. Add tests in `tests/`
-
-## Next Steps
-
-1. Implement core LangGraph nodes (classifier, responder, escalation)
-2. Set up OpenAI integration
-3. Implement email service layer
-4. Add knowledge base ingestion
-5. Build API endpoints
-6. Write integration tests
-
-## Contributing
-
-TBD
-
-## License
-
-TBD
-
-## Support
-
-For questions or issues, please open a GitHub issue or contact the development team.
+MIT
