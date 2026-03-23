@@ -1,4 +1,4 @@
-# 📧 Email Support Agent
+# 📧 Customer Support Agent
 
 AI-powered customer support email agent using LangGraph, LangChain, and FastAPI. Classifies emails, generates responses with RAG, and escalates complex issues.
 
@@ -129,10 +129,4 @@ Response: "Click Forgot Password on login page..."
 Status: SENT ✓
 ```
 
-## 🤝 Contributing
 
-Pull requests welcome. For major changes, open an issue first.
-
-## 📝 License
-
-MIT
